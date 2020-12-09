@@ -73,7 +73,7 @@ class ChainApiAsync():
         frozen_code = header + region_sizes + name_region + code_size_region + code_region
         return frozen_code
 
-    def compile(self, contract, code, vm_type=1):
+    async def compile(self, contract, code, vm_type=1):
         assert vm_type == 1
         return self.mp_compile(contract, code)
 
@@ -202,13 +202,13 @@ class ChainApiAsync():
         return await self.push_action(token_account, 'transfer', args, {_from:permission})
 
     @jsobj2pyobj
-    async def deploy_contract(self, account, code, abi, vmtype=1, vmversion=0, sign=True, compress=0):
+    async def deploy_contract(self, account, code, abi, vm_type=1, vm_version=0, sign=True, compress=0):
         actions = []
         same_code = code == self.db.get_code(account)
         if not same_code:
             args = {"account": account,
-                    "vmtype": vmtype,
-                    "vmversion": vmversion,
+                    "vmtype": vm_type,
+                    "vmversion": vm_version,
                     "code": code.hex()
             }
             setcode = {
