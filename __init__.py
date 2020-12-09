@@ -3,7 +3,8 @@ __all__ = (
     'chaincache',
     'wallet',
     'config',
-    'hello'
+    'hello',
+    'test_helper'
 )
 
 from . import chainapi
